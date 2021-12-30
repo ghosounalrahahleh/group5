@@ -7,6 +7,8 @@ use App\Models\Owner;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 class ServiceController extends Controller
 {
     /**
@@ -21,11 +23,12 @@ class ServiceController extends Controller
         return view('backend.manage_services', compact(['services', 'owners']));
     }
 
-    public function ownerindex()
+    public function ownerindex( Request $request)
     {
+        $id = $request->session()->get('owner');
         $services = Service::all();
-        $owners = Owner::all();
-        return view('backend.owner_dashboard.manage_service', compact(['services', 'owners']));
+        $owner = Owner::find($id);
+        return view('backend.owner_dashboard.manage_service', compact(['services', 'owner']));
     }
     /**
      * Show the form for creating a new resource.
@@ -119,11 +122,12 @@ class ServiceController extends Controller
     }
 
 
-    public function owneredit($id)
+    public function owneredit(Request $request, $id)
     {
         $service = Service::find($id);
-        $owners = Owner::all();
-        return view('backend.owner_dashboard.updates.service_update', compact(['service', 'owners']));
+        $id = $request->session()->get('owner');
+        $owner = Owner::find($id);
+        return view('backend.owner_dashboard.updates.service_update', compact(['service', 'owner']));
     }
     /**
      * Update the specified resource in storage.
