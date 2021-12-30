@@ -16,25 +16,34 @@
                             <th scope="col">Company Name</th>
                             <th scope="col">Company Email</th>
                             <th scope="col">Owner Password</th>
+                            <th scope="col">Owner Phone</th>
+                            <th scope="col">Company Address</th>
                             <th scope="col">Logo</th>
                             <th scope="col">Category</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Number Of Employees</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($owners as $owner) --}}
+                        @foreach ($owners as $owner)
                         {{-- @if ( $owner->id == $singleowner->id ) --}}
                         <tr>
                             <th scope="row">{{$owner->id}}</th>
-                            
                             <td>{{$owner->owner_name}}</td>
                             <td>{{$owner->owner_email}}</td>
                             <td>{{$owner->company_name}}</td>
                             <td>{{$owner->company_email}}</td>
                             <td>{{$owner->password}}</td>
+                            <td>{{$owner->phone}}</td>
+                            <td>{{$owner->address}}</td>
                             <td><img src="{{asset($owner->logo)}}" width="40px" height="70px"
                                     alt="{{$owner->company_name}}"></td>
+                            {{-- @foreach($categories as $category) --}}
                             <td>{{$owner->category->name}}</td>
+                            {{-- @endforeach --}}
+                            <td>{{$owner->desc}}</td>
+                            <td>{{$owner->num_of_employees}}</td>
                             <td class="text-center">
                                 <a href="{{route('owner_profile.edit',['id'=>$owner->id])}}" class="mx-3"
                                     data-bs-toggle="tooltip" data-bs-original-title="Edit user">
@@ -46,7 +55,7 @@
 
                         </tr>
                         {{-- @endif --}}
-                        {{-- @endforeach --}}
+                        @endforeach
 
 
                     </tbody>

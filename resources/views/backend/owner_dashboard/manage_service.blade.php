@@ -11,46 +11,23 @@
             <div class="card-body ">
                 <form action="{{route('owner_service.store')}}" method="post" id="basicform" data-parsley-validate="" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                         <label for="inputUserName">Service Name</label>
                         <input id="inputUserName" type="text" name="title" data-parsley-trigger="change" required="" placeholder="Service Name" autocomplete="off" class="form-control">
                     </div>
                   
-                    <div class="mb-3 col-md-6">
-                        <label for="formFileSm" class="form-label">Choose Image</label>
-                        <input class="form-control  form-control-sm" name="service_image" id="formFileSm" type="file">
-                      </div>
-                    <div class="col-md-6">
+                 
+                    <div class="col-md-12">
                         <div class="form-group">
                           <label for="exampleFormControlTextarea1">Description</label>
                           <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="3"></textarea>
                       </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group w-100">
-                        <label for="inputState">Owner</label>
-                        <select name="owner" id="inputState" class="form-control">
-                          {{-- <option selected>Choose Owner</option> --}}
-                         
-                          
-                            {{-- @foreach($owners as $owner) --}}
-                          {{-- @if ($owner->id==10) --}}
-                            {{-- <option value="{{$owner->id==9}}">{{$owner->owner_name}}</option> --}} 
-                         <option value="{{$owner->id}}">{{$owner->owner_name}}</option>
-                           
-                           {{-- @endif --}}
-                          {{-- @endforeach   --}}
-                        </select>
-                        
+                    <div class="mb-3">
+                        <label for="formFileSm" class="form-label">Choose Image</label>
+                        <input class="form-control  form-control-sm" name="service_image" id="formFileSm" type="file">
                       </div>
-                     
-              </div>
-                    
-                    
-                        <div class="col-sm-12 pb-2 pb-sm-4 pb-lg-0 pr-0">
-                            
-                        </div>
+                    <div class="row">
                         <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
                             
                         </div>
@@ -60,8 +37,26 @@
                                 
                             </p>
                         </div>
-                    
-                </div>
+                        <div class="col-md-6">
+                            <div class="form-group w-100">
+                                <label for="inputState">Owner</label>
+                                <select name="owner" id="inputState" class="form-control">
+                                  <option selected>Choose Owner</option>
+                                 
+                                  
+                                    @foreach($owners as $owner)
+                                  @if ($owner->id==10)
+                                    {{-- <option value="{{$owner->id==9}}">{{$owner->owner_name}}</option> --}} 
+                               <option value="{{$owner->id}}">{{$owner->owner_name}}</option>
+                                   
+                                   @endif
+                                  @endforeach  
+                                </select>
+                                
+                              </div>
+                             
+                      </div>
+                    </div>
                 </form>
             </div>
         </div>

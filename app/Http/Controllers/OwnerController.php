@@ -13,7 +13,7 @@ use Illuminate\Pagination\Paginator;
 use App\Http\Requests\StoreOwnerRequest;
 use App\Http\Requests\UpdateOwnerRequest;
 use App\Models\Service;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 class OwnerController extends Controller
 {
@@ -52,13 +52,12 @@ class OwnerController extends Controller
         //
     }
     //owner
-    public function ownerindex( Request $request)
+    public function ownerindex()
     {
-        $id = $request->session()->get('owner');
-        $owner     = Owner::find($id);
+        $owners     = Owner::all();
         $categories = Category::all();
         // $singleOwner = Owner::find($id);
-        return view('backend.owner_dashboard.manage_profile', compact(['owner', 'categories']));
+        return view('backend.owner_dashboard.manage_profile', compact(['owners', 'categories']));
     }
 
     public function backendindex()
@@ -293,7 +292,6 @@ class OwnerController extends Controller
             } else {
                 foreach ($owners as $owner)
                     if ($owner->owner_email === $email && $password === $owner->password) {
-                        Session::put('owner', $owner->id);
                         //redirect to admin dashboard
                         return redirect()->route('owner_profile.index', $owner->id);
                     } else {

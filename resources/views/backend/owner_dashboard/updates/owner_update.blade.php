@@ -74,11 +74,11 @@
                     <div class="form-group w-100">
                         <label for="inputState">Category</label>
                         <select name="category" id="inputState" class="form-control">
-                          {{-- <option selected>Choose Category</option> --}}
+                          <option selected>Choose Category</option>
                          
                           
                           @foreach($categories as $category)
-                              @if ($owner->category_id == $category->id)
+                              @if ($category->id==9)
                                 {{-- <option value="{{$owner->id==9}}">{{$owner->owner_name}}</option> --}} 
                            <option value="{{$category->id}}">{{$category->name}}</option>
                                

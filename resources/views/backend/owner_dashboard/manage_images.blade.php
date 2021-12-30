@@ -8,14 +8,14 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <h5 class="card-header">Images Info</h5>
-            <div class="card-body">
+            <div class="card-body table-responsive p-0">
                 <form action="{{route('owner_image.store')}}" method="post" id="basicform" data-parsley-validate="" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3">
                         <label for="formFileSm" class="form-label">Choose Image</label>
                         <input class="form-control  form-control-sm" name="image" id="formFileSm" type="file">
                       </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                         <label for="inputUserName">Image Alt</label>
                         <input id="inputUserName" type="text" name="image_alt" data-parsley-trigger="change"  placeholder="Image Alt" autocomplete="off" class="form-control">
                     </div>
