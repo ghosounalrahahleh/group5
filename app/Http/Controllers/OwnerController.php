@@ -132,7 +132,7 @@ class OwnerController extends Controller
         $categories   = Category::all();
         $singleOwners = Owner::find($id);
         $users        = User::all();
-        $comments     = Comment::where('owner_id', $id)->paginate(3);;
+        $comments     = Comment::where('owner_id', $id)->paginate(3);
         $services      = Service::all();
         $rate_count   = 0;
         foreach ($comments as $comment) {
