@@ -5,7 +5,7 @@
 
 <style>
   .page_link>a:hover {
-    font-weight:900;
+    font-weight: 900;
   }
 </style>
 
@@ -23,6 +23,7 @@
           <a href="{{ route('allCategories') }}">/ Companies</a>
         </div>
       </div>
+
     </div>
     <div class="row">
 

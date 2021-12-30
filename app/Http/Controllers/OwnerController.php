@@ -41,6 +41,16 @@ class OwnerController extends Controller
         $companies = Owner::limit(6)->get();
         return view('publicSite.index', compact(['owner', 'category', 'owner_counter', 'users_counter', 'reviews_counter', 'companies']));
     }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreOwnerRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreOwnerRequest $request)
+    {
+        //
+    }
     //owner
     public function ownerindex()
     {
@@ -56,22 +66,7 @@ class OwnerController extends Controller
         $categories = Category::all();
         return view('backend.manage_owner', compact(['owners', 'categories']));
     }
-    public function search(Request $request)
-    {
-        // Get the search value from the request
-        $search = $request->input('search');
-        // Search in the title and body columns from the owner table
-        $owner = Owner::query()
-            ->where('company_name', 'LIKE', "%{$search}%")
-            ->orWhere('owner_email', 'LIKE', "%{$search}%")
-            ->orWhere('owner_name', 'LIKE', "%{$search}%")
-            ->orWhere('desc', 'LIKE', "%{$search}%")
-            ->orWhere('logo', 'LIKE', "%{$search}%")
-            ->orWhere('address', 'LIKE', "%{$search}%")
-            ->get();
 
-        return view('publicSite.search', compact('owner'));
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -86,16 +81,7 @@ class OwnerController extends Controller
         return view('backend.manage_owner');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOwnerRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreOwnerRequest $request)
-    {
-        //
-    }
+
     public function backendstore(StoreOwnerRequest $request)
     {
         $this->validate($request, [
@@ -109,6 +95,7 @@ class OwnerController extends Controller
             'address'          => 'required|max:250',
             'logo'             => 'required|mimes:jpeg,png,gif,jpg',
         ]);
+
         if ($request->hasFile('logo')) {
             $file = $request->logo;
             $new_file = time() . $file->getClientOriginalName();
@@ -172,10 +159,10 @@ class OwnerController extends Controller
 
     public function ownershow($id)
     {
-       $singleowner = Owner::find($id);
-       return view('backend.owner_dashboard.manage_profile',compact('singleowner'));
+        $singleowner = Owner::find($id);
+        return view('backend.owner_dashboard.manage_profile', compact('singleowner'));
     }
-  
+
 
     /**
      * Show the form for editing the specified resource.
@@ -321,5 +308,22 @@ class OwnerController extends Controller
                     }
             }
         }
+    }
+
+    public function search(Request $request)
+    {
+        // Get the search value from the request
+        $search = $request->input('search');
+        // Search in the title and body columns from the owner table
+        $owner = Owner::query()
+            ->where('company_name', 'LIKE', "%{$search}%")
+            ->orWhere('owner_email', 'LIKE', "%{$search}%")
+            ->orWhere('owner_name', 'LIKE', "%{$search}%")
+            ->orWhere('desc', 'LIKE', "%{$search}%")
+            ->orWhere('logo', 'LIKE', "%{$search}%")
+            ->orWhere('address', 'LIKE', "%{$search}%")
+            ->get();
+
+        return view('publicSite.search', compact('owner'));
     }
 }

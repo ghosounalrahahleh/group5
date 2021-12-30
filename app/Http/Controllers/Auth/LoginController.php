@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {
     /*
@@ -42,8 +44,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function showLoginForm()
+    {
+        Session::put('url.intended',URL::previous());
+        return view('auth.login');        
+    }
+    
     protected function authenticated(Request $request, $user)
     {
-       return redirect()->route('landingComp');
+        if (auth()->attempt(array(
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ))) {
+            if (Auth::user()->name == 'Admin') {
+                return redirect()->to('home');
+            } else {
+                return Redirect::to(Session::get('url.intended'));
+            }
+        }
     }
 }

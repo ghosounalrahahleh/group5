@@ -56,16 +56,9 @@ class ReviewController extends Controller
     {
         $this->validate($request, [
             'rate-select' => 'required' 
-            // 'body' => 'required' ,
-            // 'rating' => 'required' ,
-            // 'owner_id' => 'required',
-            // 'user_id' => 'required'
         ]);
-
         $review = new Review;
         $review->count = $request->input('rate-select');
-        // $review->body = $request->input('body');
-        // $review->rating = $request->input('rating');
         $review->user_id = auth()->id();
         $review->owner_id =$company_id;
         if (Auth::check()) {
@@ -74,8 +67,6 @@ class ReviewController extends Controller
         }else{
             return redirect('/login'); 
         }
-          
-
     }
 
     /**

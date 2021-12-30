@@ -194,18 +194,54 @@
       </div>
       <div class="row">
         <div class="col-5">
+
           <img width="90%" height="400px" src="{{asset($singleOwners->logo)}}" class="" alt="Company-logo">
         </div>
-        <div class="col-7">
-          <div class="banner_content d-md-flex justify-content-between align-items-center">
-            <div class="mb-sm-5 mb-md-5">
-              <h2>{{ $singleOwners->company_name }} Company</h2>
-              <p class="text-break">{{ $singleOwners->desc}}</p>
-              <p><strong>Company rate:{{" ".$avg_rate." out of 5" }}</strong></p>
-              <p><strong>Total Reviews: {{" ".$rate_num }}</strong></p>
-            </div>
+        {{-- company information --}}
 
+        <div class="col-7">
+          {{-- Form section --}}
+          <div class="row ">
+            <form action="{{ route('comment.store') }}" method="post" class=" ">
+              @csrf
+              <div class="row w-100 justify-content-start">
+                <div class="col-7">
+                  <input type="text " name="comment" class="bg-light p-2 rounded " placeholder="Review Us!">
+                </div>
+
+                <div class="col-7  ">
+                  <div class="rate-container ">
+                    <input type="radio" name="like" id="star1" value="5"><label for="star1"></label>
+                    <input type="radio" name="like" id="star2" value="4"><label for="star2"></label>
+                    <input type="radio" name="like" id="star3" value="3"><label for="star3"></label>
+                    <input type="radio" name="like" id="star4" value="2"><label for="star4"></label>
+                    <input type="radio" name="like" id="star5" value="1"><label for="star5"></label>
+                  </div>
+                </div>
+
+                <div>
+                  @if(!empty(Auth::user()))
+
+                  <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                  <input type="hidden" name="owner_id" value="{{ $singleOwners->id }}">
+                  <button type="submit" class="btn btn-primary ml-5">Add Review</button>
+                  @else
+                  <a class="btn btn-primary " href="{{ route('login') }}">Add Review</a>
+                  @endif
+
+                  {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
+
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Show Services
+                  </button>
+
+                </div>
+              </div>
+              </fieldset>
+            </form>
           </div>
+          {{-- End Form --}}
 
         </div>
 
@@ -217,48 +253,17 @@
   <div class="container">
     <div class="row w-100 justify-content-start">
       <div class="col-12 d-flex justify-content-start mt-2 mb-5 ms-3">
-        {{-- End Company name and desc + breedcrumbs section --}}
-        {{-- Form section --}}
-        <div class="row ml-1 ">
-          <form action="{{ route('comment.store') }}" method="post" class=" ">
-            @csrf
-            <div class="row w-50 justify-content-between">
-              <div class="col-5">
-                <input type="text " name="comment" class="bg-light p-2 rounded " placeholder="Review Us!">
-              </div>
-              <div class="col-5 ml-2 ">
-                <div class="rate-container ">
-                  <input type="radio" name="like" id="star1" value="5"><label for="star1"></label>
-                  <input type="radio" name="like" id="star2" value="4"><label for="star2"></label>
-                  <input type="radio" name="like" id="star3" value="3"><label for="star3"></label>
-                  <input type="radio" name="like" id="star4" value="2"><label for="star4"></label>
-                  <input type="radio" name="like" id="star5" value="1"><label for="star5"></label>
-                </div>
-              </div>
+        <div class="banner_content d-md-flex justify-content-between align-items-center">
+          <div class="mb-sm-5 mb-md-5">
+            <h2>{{ $singleOwners->company_name }} Company</h2>
+            <p class="text-break">{{ $singleOwners->desc}}</p>
+            <p><strong>Company rate:{{" ".$avg_rate." out of 5" }}</strong></p>
+            <p><strong>Total Reviews: {{" ".$rate_num }}</strong></p>
+          </div>
 
-              <div>
-                @if(!empty(Auth::user()))
-           
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                <input type="hidden" name="owner_id" value="{{ $singleOwners->id }}">
-                <button type="submit" class="btn btn-primary ml-5">Add Review</button>
-                @else
-                <a class="btn btn-primary ml-5" href="{{ route('login') }}">Add Review</a>
-                @endif
-
-                {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
-               
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Show Services
-                </button>
-
-              </div>
-            </div>
-            </fieldset>
-          </form>
         </div>
-        {{-- End Form --}}
+        {{-- End Company name and desc + breedcrumbs section --}}
+
       </div>
 
 

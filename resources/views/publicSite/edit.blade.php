@@ -28,9 +28,10 @@
                                             name="email"></div>
 
                                     <div class="col-md-12 mb-3"><label class="labels">My Password</label><input
-                                            type="password" class="form-control" placeholder="Password"
-                                            value="{{ Auth::user()->password }}" name="password">
-                                    </div>
+                                        type="password" class="form-control" placeholder="Password"
+                                        value="{{ Auth::user()->password }}" name="password">
+                                </div>
+
                                     <div class="col-md-12 mb-3"><label class="labels">Upload image</label><input type="file"
                                             class="form-control" placeholder="Image" value="" type="file" name="image">
                                     </div>

@@ -15,12 +15,12 @@ class UserController extends Controller
     public function index()
     {
         $user  = User::all();
-        return view('publicSite.userProfile',compact('user'));
+        return view('publicSite.userProfile', compact('user'));
     }
     public function backendindex()
     {
-        $users=User::all();
-        return view('backend.manage_user',compact('users'));
+        $users = User::all();
+        return view('backend.manage_user', compact('users'));
     }
 
     /**
@@ -30,13 +30,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
     }
     public function backendcreate()
     {
         return view('backend.manage_user');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,29 +44,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
     public function backendstore(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'required|max:250',
-            'email'=>'required|max:250',
-            'password'=>'required|max:250',
-            'image'=>'required|mimes:jpeg,png,gif,jpg',
-          ]);
-          if($request->hasFile('image')){
-              $file=$request->image;
-              $new_file=time().$file->getClientOriginalName();
-              $file->move('storage/user_images/',$new_file);
-          }
-          User::create([
-              "name"=>$request->name,
-              "email"=>$request->email,
-              "password"=>$request->password,
-              "image"=>'storage/user_images/'.$new_file
+        $this->validate($request, [
+            'name' => 'required|max:250',
+            'email' => 'required|max:250',
+            'password' => 'required|max:250',
+            'image' => 'required|mimes:jpeg,png,gif,jpg',
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $new_file = time() . $file->getClientOriginalName();
+            $file->move('storage/user_images/', $new_file);
+        }
+        User::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+            "image" => 'storage/user_images/' . $new_file
 
-         ]);
-         return redirect()->back();
+        ]);
+        return redirect()->back();
     }
     /**
      * Display the specified resource.
@@ -77,7 +75,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        
     }
 
     /**
@@ -95,8 +92,8 @@ class UserController extends Controller
     //backend
     public function backendedit($id)
     {
-        $user=User::find($id);
-        return view('backend.updates.user_update',compact('user'));
+        $user = User::find($id);
+        return view('backend.updates.user_update', compact('user'));
     }
     /**
      * Update the specified resource in storage.
@@ -107,36 +104,38 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
-        if($request->hasFile('image')){
-            $file=$request->image;
-            $new_file=time().$file->getClientOriginalName();
-            $file->move('images/',$new_file);
-            $user->image='images/'.$new_file;
+        $user = User::find($id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $new_file = time() . $file->getClientOriginalName();
+            $file->move('images/', $new_file);
+            $user->image = 'images/' . $new_file;
         }
-        $user->name=$request->name;
-        $user->email=$request->email;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->city = $request->city;
+        // dd()
         $user->update();
         return redirect()->route('users.index');
     }
 
     public function backendupdate(Request $request, $id)
     {
-        $user=User::find($id);
-        if($request->hasFile('image')){
-            $file=$request->image;
-            $new_file=time().$file->getClientOriginalName();
-            $file->move('storage/user_images/',$new_file);
-            $user->image='storage/user_images/'.$new_file;
+        $user = User::find($id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $new_file = time() . $file->getClientOriginalName();
+            $file->move('storage/user_images/', $new_file);
+            $user->image = 'storage/user_images/' . $new_file;
         }
-        $user->name=$request->name;
-        $user->name=$request->name;
-        
+        $user->name = $request->name;
+        $user->name = $request->name;
+
 
         $user->update();
         return redirect()->route('user.index');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -150,8 +149,8 @@ class UserController extends Controller
     }
     public function backenddestroy($request)
     {
-        $user=User::find($request);
-        $user->delete(); 
+        $user = User::find($request);
+        $user->delete();
         return redirect()->route('user.index');
     }
 }
