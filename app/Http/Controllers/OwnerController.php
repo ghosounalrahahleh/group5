@@ -132,7 +132,7 @@ class OwnerController extends Controller
         $categories   = Category::all();
         $singleOwners = Owner::find($id);
         $users        = User::all();
-        $comments     = Comment::all();
+        $comments     = Comment::where('owner_id', $id)->paginate(3);;
         $services      = Service::all();
         $rate_count   = 0;
         foreach ($comments as $comment) {
@@ -233,7 +233,6 @@ class OwnerController extends Controller
             $file->move('storage/owner_images/', $new_file);
             $owner->logo = 'storage/owner_images/' . $new_file;
         }
-
         $owner->owner_name = $request->owner_name;
         $owner->company_name = $request->company_name;
         $owner->owner_email = $request->owner_email;
@@ -244,8 +243,6 @@ class OwnerController extends Controller
         $owner->address = $request->address;
         $owner->category_id = $request->category;
         $owner->update();
-
-
         return redirect()->route('owner_profile.index');
     }
     /**
@@ -262,10 +259,6 @@ class OwnerController extends Controller
     {
         $owner = Owner::find($request);
         $owner->delete();
-        // return $category;
-        // $category=Category::find($id);
-        // $category->delete();
-
         return redirect()->route('owner.index');
     }
     //owner
@@ -273,8 +266,6 @@ class OwnerController extends Controller
     {
         $owner = Owner::find($request);
         $owner->delete();
-
-
         return redirect()->route('owner_profile.index');
     }
 
